@@ -65,12 +65,12 @@ I often spend some time improving myself in different fields. I actually have mu
     *   Test-engineer of software for virtual reality.
     *   [skoda-auto.cz](https://www.skoda-auto.cz/)
     
-## Where I studied
+    ## Where I studied
     
     *   [Secondary Technical School Jičín](https://prumyslovkajicin.cz/)  
         _2013 - 2017_, High School, IT
     
-## What future holds?
+    ## What future holds?
 
     Soon, I would like to move to a higher level and automate the testing processes. Based on this, I am self-studying Python, however, I would like to automate using TypeScript in the Playwright framework in the coming years.
     

@@ -165,7 +165,7 @@
     margin: 0.25em 0;
   }
   
-  /* This is crazy, right? Darkmode! */
+  /* Darkmode*/
   
   @media (prefers-color-scheme: dark) {
     body {
