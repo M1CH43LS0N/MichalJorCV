@@ -22,9 +22,12 @@
         >
           Stáhněte tuto stránku v PDF
         </a>
-        <a
-        button id="language-switch">Změnit jazyk
-        </a>
+        <select id="language-selector" class="language-selector">
+          <option value="cs">Czech</option>
+          <option value="en">English</option>
+        </select>
+
+        <script src="languageSwitcher.js"></script>
         <img 
         src="/assets/photo.jpg" 
         class="photo"
@@ -69,7 +72,7 @@ aby dělali totéž. Prekondice a specifické flow zaznamenávám do znalostní 
 
 <p>Mám rád <strong>open-source</strong> a nechráněná řešení,
 např., nemělo by být překvapivé, že tento životopis je 
-<a href="https://github.com/M1CH43LS0N/MichalJorCV/blob/development/index-cs.md">soubor Markdown</a>, 
+<a href="https://github.com/M1CH43LS0N/MichalJorCV/blob/development/index_cs.md">soubor Markdown</a>, 
 který lze snadno převést do PDF, v tuto webovou stránku nebo vytisknout.<br />
 </p>
 
@@ -79,13 +82,13 @@ mám mnohem více koníčků, než je uvedeno níže, ale koníčky, jako je „
 pro účel této stránky.</p>
 
 <ul>
-  <li><strong>3D printing</strong> — So far I'm using other professionals' designs more, but I'm slowly getting into 3D modelling software like Tinkercad or Onshape.</li>
-  <li><strong>Game development</strong> — So far this is only theoretical knowledge, however, I plan to create projects in the Godot engine, which uses GDScript's syntax that is mostly derived from Python.</li>
-  <li><strong>Laser engraving</strong> — So far I only engrave wood, but I want to work my way up to more complex materials.</li>
-  <li><strong>Drone</strong> — After completing the pilot tests (A1 & A3) I invest more free time to capture the world from a bird's eye view.</li>
-  <li><strong>Exercise</strong> — Due to the nature of my job, I try to spend an hour a day exercising to lead a healthier lifestyle.</li>
-  <li><strong>Photography, Video editing</strong></li>
-  <li><strong>Music</strong> — I play the acoustic guitar as a self-taught artist, but I am gradually expanding my horizons to other instruments as well.</li>
+  <li><strong>3D tisk</strong> — Zatím více využívám návrhy jiných profesionálů, ale pomalu se dostávám do softwaru pro 3D modelování jako Tinkercad nebo Onshape.</li>
+  <li><strong>Herní vývoj</strong> — Zatím se jedná pouze o teoretické znalosti, nicméně plánuji vytvářet projekty v enginu Godot, který používá syntaxi GDScriptu, která je většinou odvozena z Pythonu.</li>
+  <li><strong>Gravírování laserem</strong> — Zatím ryju jen do dřeva, ale chci se propracovat ke složitějším materiálům.</li>
+  <li><strong>Dron</strong> — Po dokončení pilotních testů (A1 & A3) investuji více volného času do zachycení světa z ptačí perspektivy.</li>
+  <li><strong>Cvičení</strong> — Vzhledem k povaze mé práce se snažím trávit hodinu denně cvičením, abych vedl zdravější životní styl.</li>
+  <li><strong>Editace fotografie a videa</strong> — K focení a natáčení používám kromě dronu a mobilu i bezzrcadlovku. Na úpravu fotek používám Gimp (přecházím na Kritu) a na úpravu videí DaVinci Resolve.</li>
+  <li><strong>Hudba</strong> — Na akustickou kytaru hraji jako samouk, ale postupně si rozšiřuji obzory i na další nástroje.</li>
 </ul>
 
 <h2 id="my-past-experiences">Mé předchozí zkušenosti</h2>
@@ -94,58 +97,58 @@ pro účel této stránky.</p>
   <li>
     <h3 id="qa-engineer-at-gen-digital">QA Engineer v Gen Digital</strong></h3>
     <ul>
-      <li><em>February 2024 - present</em></li>
-      <li>Testing subscription marketing campaigns for Avast, AVG, Norton, CCleaner and HMA mobile apps.</li>
+      <li><em>Únor 2024 - současnosti</em></li>
+      <li>Manuální testování marketingových kampaní předplatného pro mobilní aplikace Avast, AVG, Norton, CCleaner a HMA.</li>
       <li><a href="https://www.gendigital.com/us/en/" target="_blank">gendigiatal.com</a></li>
     </ul>
   </li>
   <li>
-    <h3 id="qa-engineer-at-ceracare">QA Engineer at Cera Care</strong></h3>
+    <h3 id="qa-engineer-at-ceracare">QA Engineer v Cera Care</strong></h3>
     <ul>
-      <li><em>April 2023 – December 2023</em></li>
-      <li>Testing a web application for caregiver management.</li>
+      <li><em>Duben 2023 – Prosinec 2023</em></li>
+      <li>Manuální testování webové aplikace pro správu pečovatelů.</li>
       <li><a href="https://ceracare.co.uk/" target="_blank">ceracare.co.uk</a></li>
     </ul>
   </li>
   <li>
-    <h3 id="qa-engineer-at-rohlik">QA Engineer at Rohlik Group</strong></h3>
+    <h3 id="qa-engineer-at-rohlik">QA Engineer v Rohlik Group</strong></h3>
     <ul>
-      <li><em>October 2022 – March 2023</em></li>
-      <li>Testing mobile and web e-shop applications for Android and iOS systems.</li>
+      <li><em>Říjen 2022 – Březen 2023</em></li>
+      <li>Manuální testování mobilních a webových e-shop aplikací pro systémy Android a iOS.</li>
       <li><a href="https://www.rohlik.cz/en-CZ/vitejte" target="_blank">rohlik.cz</a></li>
     </ul>
   </li>
   <li>
-    <h3 id="qa-tester-at-eman">QA Tester at eMan a.s.</h3>
+    <h3 id="qa-tester-at-eman">QA Tester v eMan a.s.</h3>
     <ul>
-      <li><em>December 2021 – September 2022</em></li>
-      <li>Testing of web applications for energy companies (management of technicians, customer pages).</li>
+      <li><em>Prosinec 2021 – Září 2022</em></li>
+      <li>Manuální testování webových aplikací pro energetické společnosti (správa techniků, zákaznické stránky).</li>
       <li><a href="https://www.emanprague.com/en/" target="_blank">emanprague.com</a></li>
     </ul>
   </li>
   <li>
-    <h3 id="software-tester-at-skoda">Software tester at ŠKODA AUTO a.s.</h3>
+    <h3 id="software-tester-at-skoda">Software tester v ŠKODA AUTO a.s.</h3>
     <ul>
-      <li><em>January 2019 – November 2021</em></li>
-      <li>Infotainment tester for communication with smartphones.</li>
-      <li>MyŠkoda mobile application tester.</li>
-      <li>Test-engineer of software for virtual reality.</li>
+      <li><em>Leden 2019 – Listopad 2021</em></li>
+      <li>Manuální tester infotainmentu pro komunikaci s chytrými telefony.</li>
+      <li>Manuální tester mobilní aplikace MyŠkoda.</li>
+      <li>Testovací inženýr softwaru pro virtuální realitu.</li>
       <li><a href="https://www.skoda-auto.cz/" target="_blank">skoda-auto.cz</a></li>
 </ul>
 
-<h2 id="where-i-studied">Where I studied</h2>
+<h2 id="where-i-studied">Kde jsem studoval</h2>
 
 <ul>
-  <li><a href="https://prumyslovkajicin.cz/" target="_blank">Secondary Technical School Jičín</a><br />
-<em>2013 - 2017</em>, High School, IT</li>
+  <li><a href="https://prumyslovkajicin.cz/" target="_blank">Střední průmyslová škola, Jičín</a><br />
+<em>2013 - 2017</em>, maturita, IT</li>
 </ul>
-<h2 id="what-future-holds">What future holds?</h2>
+<h2 id="what-future-holds">Co přináší budoucnost?</h2>
 
-<p>Soon, I would like to move to a higher level and automate the testing processes. 
-  Based on this, I am self-studying Python, however, I would like to automate using TypeScript in the Playwright framework in the coming years.
+<p>Brzy bych se rád posunul na vyšší úroveň a začal automatizovat testovací procesy. 
+  Na základě toho studuji Python, nicméně v příštích letech bych chtěl automatizovat pomocí JavaScriptu v rámci Playwrightu.
 </p>
 <p> 
-In the time frame of 5 years, I would like to develop into a front-end developer using React.
+Za 5 let bych se chtěl vypracovat na front-end vývojáře pomocí Reactu.
 </p>
       </main>
     </div>

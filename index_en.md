@@ -4,7 +4,7 @@ layout: home
 
 # Hi, my name is Michal.
 
-I’m 28-yo QA Engineer and technology enthusiast with interests in various multimedia, art, and design. I have experience with both front-end and back-end testing, mobile application testing and hardware testing. I’m currently working on a website for my hobbies and learning automation.
+I’m a 28-yo QA Engineer and technology enthusiast with interests in various multimedia, art, and design. I have experience with both front-end and back-end testing, web applications, mobile application testing and hardware testing.I am currently studying the programming languages ​​Python with JavaScript and their use in automation. In addition to this CV, I am working on a website for my hobbies. I use GitHub for my work.
 
 ## How to contact me
 
@@ -21,7 +21,7 @@ I’m a QA Engineer with an emphasis on the **manual testing of web and mobile a
 
 I try to cover all corners of the field, from control of interactive elements & features to UI design and UX to the overall final result presented to users. I value good testing practices. I keep clean reports and try to guide others to do the same. I record all preconditions for a specific flow in the knowledge database.
 
-I also like **open-source** and non-proprietary solutions, so for example, it shouldn’t be surprising that this resume is [a Markdown file](https://github.com/marianhlavac/marianhlavac-cz/blob/master/index.md) that can be converted easily into PDF, this website, or printed.  
+I also like **open-source** and non-proprietary solutions, so for example, it shouldn’t be surprising that this resume is [a Markdown file](https://github.com/M1CH43LS0N/MichalJorCV/blob/development/index_en.md) that can be converted easily into PDF, this website, or printed.  
 
 ### Hobbies & Other skills
 
@@ -32,7 +32,7 @@ I often spend some time improving myself in different fields. I actually have mu
 *   **Laser engraving** — So far I only engrave wood, but I want to work my way up to more complex materials.
 *   **Drone** — After completing the pilot tests (A1 & A3) I invest more free time to capture the world from a bird's eye view.
 *   **Exercise** — Due to the nature of my job, I try to spend an hour a day exercising to lead a healthier lifestyle.
-*   **Photography, Video editing**
+*   **Photography & Video editing** — In addition to a drone and a mobile phone, I also use a mirrorless interchangeable-lens camera to take photos and videos. I use Gimp (I'm switching to Krita) to edit photos and DaVinci Resolve to edit videos.
 *   **Music** — I play the acoustic guitar as a self-taught artist, but I am gradually expanding my horizons to other instruments as well.
 
 ## My past experiences
@@ -40,38 +40,38 @@ I often spend some time improving myself in different fields. I actually have mu
 *   ### QA Engineer at Gen Digital
     
     *   _February 2024 - present_
-    *   Testing subscription marketing campaigns for Avast, AVG, Norton, CCleaner and HMA mobile apps.
+    *   Manual testing of subscription marketing campaigns for Avast, AVG, Norton, CCleaner and HMA mobile apps.
     *   [gendigiatal.com](https://www.gendigital.com/us/en/)
 *   ### QA Engineer at Cera Care
     
     *   _April 2023 – December 2023_
-    *   Testing a web application for caregiver management.
+    *   Manual testing of a web application for caregiver management.
     *   [ceracare.co.uk](https://ceracare.co.uk/)
 *   ### QA Engineer at Rohlik Group
     
     *   _October 2022 – March 2023_
-    *   Testing mobile and web e-shop applications for Android and iOS systems.
+    *   Manual testing of mobile and web e-shop applications for Android and iOS systems.
     *   [rohlik.cz](https://www.rohlik.cz/en-CZ/vitejte)
 *   ### QA Tester at eMan a.s.
     
     *   _December 2021 – September 2022_
-    *   Testing of web applications for energy companies (management of technicians, customer pages).
+    *   Manual testing of web applications for energy companies (management of technicians, customer pages).
     *   [emanprague.com](https://www.emanprague.com/en/)
 *   ### Software tester at ŠKODA AUTO a.s.
     
     *   _January 2019 – November 2021_
-    *   Infotainment tester for communication with smartphones.
-    *   MyŠkoda mobile application tester.
-    *   Test-engineer of software for virtual reality.
+    *   Infotainment manual tester for communication with smartphones.
+    *   MyŠkoda mobile application manual tester.
+    *   Test engineer of software for virtual reality.
     *   [skoda-auto.cz](https://www.skoda-auto.cz/)
     
-    ## Where I studied
+## Where I studied
     
-    *   [Secondary Technical School Jičín](https://prumyslovkajicin.cz/)  
-        _2013 - 2017_, High School, IT
+*   [Secondary Technical School, Jičín](https://prumyslovkajicin.cz/)  
+    _2013 - 2017_, graduation, IT
     
-    ## What future holds?
+## What future holds?
 
-    Soon, I would like to move to a higher level and automate the testing processes. Based on this, I am self-studying Python, however, I would like to automate using TypeScript in the Playwright framework in the coming years.
+Soon, I would like to move to a higher level and automate the testing processes. Based on this, I am self-studying Python, however, I would like to automate using JavaScript in the Playwright framework in the coming years.
     
-    In the time frame of 5 years, I would like to develop into a front-end developer using React.
+In 5 years, I would like to develop into a front-end developer using React.

@@ -1,19 +1,7 @@
-document.getElementById('language-switch').addEventListener('click', function() { 
-  changeLanguage('en');
-  changeLanguage('cs')
+const languageSelector = document.getElementById('language-selector');
+
+languageSelector.addEventListener('change', () => {
+    const selectedLanguage = languageSelector.value;
+    const url = `index_${selectedLanguage}.html`;
+    window.location.href = url;
 });
-function changeLanguage(language) {
-  if (language === 'cs') {
-      fetch('index-cs.html')
-          .then(response => response.text())
-          .then(data => {
-              document.body.innerHTML = data;
-          });
-  } else if (language === 'en') {
-      fetch('index-en.html')
-          .then(response => response.text())
-          .then(data => {
-              document.body.innerHTML = data;
-          });
-  }
-}
