@@ -1,7 +1,25 @@
-const languageSelector = document.getElementById('language-selector');
+const languageSwitchButton = document.getElementById('language-switch');
+const contentDiv = document.getElementById('content');
 
-languageSelector.addEventListener('change', () => {
-    const selectedLanguage = languageSelector.value;
-    const url = `index_${selectedLanguage}.html`;
-    window.location.href = url;
+let currentLanguage = 'en'; // Default language
+
+languageSwitchButton.addEventListener('click', () => {
+    if (currentLanguage === 'en') {
+        currentLanguage = 'cs';
+    } else {
+        currentLanguage = 'en';
+    }
+
+    fetch(`index_${currentLanguage}.html`)
+        .then(response => response.text())
+        .then(data => {
+            contentDiv.innerHTML = data;
+        });
 });
+
+// Load the initial content
+fetch(`index_${currentLanguage}.html`)
+    .then(response => response.text())
+    .then(data => {
+        contentDiv.innerHTML = data;
+    });
