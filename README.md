@@ -1,2 +1,7 @@
 # MichalJorCV
-A virtual resume that further elaborates on my career experience to date.
+My personal website running at http://michaljor.cz.
+
+## Pages
+
+- [The main page, my CV](./index.md)
+- [Er-form introduction of me](./er.md)
