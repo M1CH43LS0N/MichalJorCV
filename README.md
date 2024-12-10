@@ -1,7 +1,3 @@
----
-layout: home
----
-
 # Hi, my name is Michal.
 
 I’m a 28-yo QA Engineer and technology enthusiast with interests in various multimedia, art, and design. I have experience with both front-end and back-end testing, web applications, mobile application testing and hardware testing.I am currently studying the programming languages ​​Python with JavaScript and their use in automation. In addition to this CV, I am working on a website for my hobbies. I use GitHub for my work.
