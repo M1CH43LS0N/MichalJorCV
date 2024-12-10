@@ -114,6 +114,8 @@
     top: 5%;
     left: 60%;
     z-index: -200;
+    max-width: 50%; /* Ensure the image never exceeds the container's width */
+    display: block;  /* Removes extra spacing for inline images */
   }
   
   /* Button */
@@ -220,6 +222,9 @@
       position: static;
       margin-top: -2rem;
       width: 1200px;
+      max-width: 50%; /* Ensure the image never exceeds the container's width */
+      height: auto;    /* Maintain the aspect ratio */
+      display: block;  /* Removes extra spacing for inline images */
     }
     
     a.download-pdf {
