@@ -68,6 +68,6 @@ I often spend some time improving myself in different fields. I actually have mu
     
 ## What future holds?
 
-Soon, I would like to move to a higher level and automate the testing processes. Based on this, I am self-studying Python, however, I would like to automate using JavaScript in the Playwright framework in the coming years.
+Soon, I would like to move to a higher level and automate the testing processes. Based on this, I am self-studying Python, however, I would like to automate using TypeScript in the Playwright framework in the coming years.
     
 In 5 years, I would like to develop into a front-end developer using React.
