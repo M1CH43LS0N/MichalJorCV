@@ -1,0 +1,786 @@
+/* ════════════════════════════════════════════
+   MOBILE-FIRST ARCHITECTURE
+   Base styles target the smallest screen.
+   Larger breakpoints (≥540px, ≥760px) layer on
+   enhancements via min-width media queries at
+   the bottom of this stylesheet.
+════════════════════════════════════════════ */
+
+/* ── Design tokens ──
+   All colors and font stacks are defined here as CSS custom properties
+   (variables). Changing a value here updates the whole page.          */
+:root {
+  /* Dark background shades — deep navy to mid-blue */
+  --blue-deep:    #0a0e2e;
+  --blue-mid:     #0d1b4b;
+  /* Accent blues used for borders, buttons, and highlights */
+  --blue-bright:  #1a40cc;
+  --blue-accent:  #2d6fff;
+  --blue-glow:    #4d8fff;
+  /* Soft blue for h3 headings and secondary labels */
+  --blue-soft:    #a8c4ff;
+  /* Cyan is used for links, badges, glow effects, and the cursor */
+  --cyan:         #00d4ff;
+  --cyan-dim:     #00a8cc;
+  /* Text hierarchy: primary (bright), muted (subdued), dim (very faint) */
+  --text-primary: #e8f0ff;
+  --text-muted:   #7a9acc;
+  --text-dim:     #4a6a99;
+  /* Card surface colors — very subtle transparency over the dark background */
+  --surface:      rgba(255,255,255,0.03);
+  --surface-hover:rgba(255,255,255,0.06);
+  /* Border tints using the accent blue at different opacities */
+  --border:       rgba(77,143,255,0.15);
+  --border-bright:rgba(77,143,255,0.4);
+  /* Font shorthand variables */
+  --mono:    'JetBrains Mono', monospace;
+  --sans:    'DM Sans', sans-serif;
+  --display: 'Syne', sans-serif;
+}
+
+/* Applies border-box sizing globally so padding is included in element widths */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Custom text selection highlight color */
+::selection { background: rgba(45,111,255,0.35); color: #fff; }
+
+/* Enables smooth scrolling when jumping to anchor links */
+html { scroll-behavior: smooth; }
+
+/* ── Body — base mobile styles ──
+   Font, line height, and background are set here.
+   overflow-x: hidden prevents horizontal scrollbars
+   caused by wide glow/animation elements.          */
+body {
+  font-family: var(--sans);
+  font-size: 15px;       /* slightly smaller on mobile; increases at wider breakpoints */
+  line-height: 1.7;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  background-color: var(--blue-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* ── Decorative background grid (body::before) ──
+   A fixed full-viewport pseudo-element that draws a faint
+   horizontal + vertical line grid behind all content.
+   Fixed positioning means it stays in place while the user scrolls.
+   pointer-events: none lets clicks pass straight through it.        */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;   /* shorthand for top: 0; right: 0; bottom: 0; left: 0 */
+  background-image:
+    linear-gradient(rgba(45,111,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,111,255,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;   /* tighter on mobile; loosened to 40px on desktop */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Ambient top glow (body::after) ──
+   A large soft radial gradient centered at the top of the viewport.
+   Creates the illusion of a blue light source above the content.    */
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);   /* horizontally centered */
+  width: 100vw;
+  height: 400px;
+  background: radial-gradient(ellipse at center, rgba(45,111,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Scanline texture overlay ──
+   A repeating stripe pattern placed over all content at z-index: 1000.
+   Opacity is extremely low — it just adds a faint CRT / technical feel.
+   pointer-events: none ensures it never blocks interactions.           */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ── Outer wrapper ──
+   Clips any overflow from glow animations and sits above the background
+   pseudo-elements (z-index: 1 vs their z-index: 0).                    */
+.wrap { overflow-x: hidden; position: relative; z-index: 1; }
+
+/* ── Page content column ──
+   Centered with a max-width. Compact padding on mobile;
+   generous padding added at the desktop breakpoint.      */
+main {
+  max-width: 860px;
+  padding: 2rem 1.25rem;   /* mobile: tight */
+  margin: auto;
+  position: relative;
+}
+
+/* ── Top bar: badge + PDF button ──
+   On mobile: items stack vertically (flex-direction: column).
+   At ≥540px: switches to a horizontal row with space-between.
+   The slide-down animation runs once on page load.               */
+.topbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  animation: fadeSlideDown 0.6s ease both;
+}
+
+/* ── "Works as my resumé." label ──
+   Styled to look like a code comment — the "// " prefix is injected
+   by the ::before pseudo-element below.
+   Monospace font and cyan color reinforce the tech aesthetic.      */
+.works-as {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--cyan);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3em 0.7em;
+  border: 1px solid rgba(0,212,255,0.3);
+  border-radius: 3px;
+  background: rgba(0,212,255,0.05);
+}
+/* Prepends a code-comment-style prefix to the label text */
+.works-as::before { content: '// '; opacity: 0.5; }
+
+/* ── PDF / print button ──
+   Applies the same visual style to both <button> and <a> elements.
+   On mobile it spans the full width for an easier tap target.
+   At ≥540px width reverts to auto.
+   onclick="window.print()" opens the browser print dialog — the user
+   can then "Save as PDF". This always prints the live page content,
+   so no static PDF export is needed.                                */
+button.button, a.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--blue-glow);
+  background: rgba(45,111,255,0.1);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  padding: 0.55em 1em;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: all 0.25s ease;
+  -webkit-text-fill-color: unset;   /* overrides gradient text fill used on plain <a> tags */
+  width: 100%;                      /* full-width on mobile */
+  justify-content: center;
+}
+/* Injects a download arrow icon before the button label */
+button.button::before, a.button::before { content: '↓ '; font-size: 1em; }
+button.button:hover, a.button:hover {
+  background: rgba(45,111,255,0.25);
+  border-color: var(--blue-glow);
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  box-shadow: 0 0 20px rgba(45,111,255,0.3);   /* outer glow on hover */
+  text-decoration: none;
+}
+
+/* ── Intro block: name + bio + photo ──
+   Mobile: single column, items stacked top-to-bottom.
+   Desktop (≥760px): two-column grid — text left, photo right.
+   Both children carry .animate-in for scroll-triggered fade-in. */
+.intro-block {
+  display: flex;
+  flex-direction: column;   /* stacked on mobile */
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Profile photo wrapper ──
+   The ::before pseudo-element creates an animated gradient border.
+   The ::after pseudo-element adds a soft ambient glow behind the photo. */
+.photo-container {
+  position: relative;
+  width: 130px;   /* smaller on mobile; enlarged on desktop */
+}
+/* Animated gradient border — sits 3px outside the photo via negative inset */
+.photo-container::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(135deg, var(--blue-accent), var(--cyan));
+  border-radius: 6px;
+  z-index: -1;   /* behind the photo */
+  animation: borderGlow 3s ease-in-out infinite alternate;
+}
+/* Ambient glow blob behind the photo, larger than the border */
+.photo-container::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  background: radial-gradient(ellipse, rgba(45,111,255,0.2) 0%, transparent 70%);
+  z-index: -2;
+  border-radius: 50%;
+}
+/* Pulses the border between dim and bright, adding a soft cyan glow at peak */
+@keyframes borderGlow {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1; box-shadow: 0 0 30px rgba(0,212,255,0.4); }
+}
+/* The photo: cropped to fill the fixed frame without distortion */
+.photo {
+  width: 130px;
+  height: 160px;
+  object-fit: cover;   /* crops to fill while preserving aspect ratio */
+  display: block;
+  border-radius: 4px;
+  filter: brightness(0.95) contrast(1.05);   /* subtle pop against the dark background */
+}
+/* Small monospace caption rendered below the photo */
+.photo-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--text-dim);
+  text-align: center;
+  margin-top: 0.4rem;
+  letter-spacing: 0.08em;
+}
+
+/* ── Heading hierarchy ──
+   All three levels share the Syne display font.
+   h1: large gradient title with load animation
+   h2: section heading with a badge (from data-prefix) and a trailing line
+   h3: subsection label inside cards                                       */
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.15;
+}
+/* Page title: white-to-cyan gradient fill, slides up on load */
+h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 0.5em 0;
+  background: linear-gradient(135deg, #fff 30%, var(--blue-soft) 70%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;   /* reveals the gradient behind the text */
+  animation: fadeSlideUp 0.7s 0.1s ease both;
+}
+/* Section headings use flexbox to align badge + text + trailing line */
+h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.75rem 0;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+/* Badge pulled from the data-prefix HTML attribute (e.g. "§ 01") */
+h2::before {
+  content: attr(data-prefix);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 0.1em;
+  padding: 0.2em 0.55em;
+  border: 1px solid rgba(0,212,255,0.35);
+  border-radius: 3px;
+  background: rgba(0,212,255,0.06);
+  white-space: nowrap;
+}
+/* Decorative horizontal rule that fills space to the right of the heading text */
+h2::after {
+  content: '';
+  flex: 1;
+  min-width: 20px;
+  height: 1px;
+  background: linear-gradient(to right, var(--border-bright), transparent);
+}
+/* Card sub-heading in soft blue */
+h3 {
+  font-size: 0.97rem;
+  font-weight: 700;
+  margin: 0 0 0.2em 0;
+  color: var(--blue-soft);
+}
+
+/* ── Body text ──
+   Light weight (300) reads better than regular weight on a dark background. */
+p {
+  margin: 1em 0;
+  color: var(--text-primary);
+  font-weight: 300;
+  font-size: 0.93rem;
+}
+
+/* ── Links ──
+   Cyan by default. The -webkit-text-fill-color override is required because
+   some parent elements use gradient text fills that would otherwise win.
+   Hover adds a neon glow via text-shadow.                                   */
+a {
+  color: var(--cyan);
+  -webkit-text-fill-color: var(--cyan);
+  text-decoration: none;
+  background: none;
+  transition: color 0.2s, text-shadow 0.2s;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+}
+a:hover {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  text-shadow: 0 0 12px rgba(0,212,255,0.6);
+}
+
+/* ── Section cards ──
+   Wraps Contact, What I Do, Hobbies, and Education content.
+   overflow: hidden clips the left accent bar (::before) to the card's
+   rounded corners. The bar is invisible by default and fades in on hover. */
+.section-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+  transition: border-color 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+/* Left accent bar — 3px wide gradient stripe, hidden until hover */
+.section-block::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--blue-accent), var(--cyan));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+/* Brighten border and background on hover */
+.section-block:hover { border-color: var(--border-bright); background: var(--surface-hover); }
+/* Reveal the left accent bar on hover */
+.section-block:hover::before { opacity: 1; }
+
+/* ── Experience list ──
+   Plain <ul> reset — no bullets, no default padding/margin.
+   Children are .exp-entry cards.                            */
+.exp-list { list-style: none; padding: 0; margin: 0; }
+
+/* ── Experience entry card ──
+   Same hover pattern as .section-block (border brightens + left bar appears).
+   On tablet+ (≥540px), hover also shifts the card right by 4px. */
+.exp-entry {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+  margin: 0.75rem 0;
+  background: var(--surface);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+/* Left accent bar — same as section cards */
+.exp-entry::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--blue-accent), var(--cyan));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.exp-entry:hover { border-color: var(--border-bright); background: var(--surface-hover); }
+.exp-entry:hover::before { opacity: 1; }
+
+/* ── Experience card header: job title + date ──
+   Stacked vertically on mobile; side-by-side on desktop. */
+.exp-header {
+  display: flex;
+  flex-direction: column;   /* stacked on mobile */
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+/* Date badge — looks like a code token or git tag */
+.exp-date {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  background: rgba(45,111,255,0.1);
+  border: 1px solid var(--border);
+  padding: 0.15em 0.55em;
+  border-radius: 3px;
+  align-self: flex-start;   /* prevents stretching to the card width */
+}
+/* Job description text inside each experience card */
+.exp-desc {
+  font-size: 0.87rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin: 0.3rem 0;
+}
+/* Company website link at the bottom of each card */
+.exp-link {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── Hobbies grid ──
+   Single column on mobile; two columns on tablet+ (updated in media query).
+   Each <li> contains a <strong> title block and a short description.       */
+.hobby-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;   /* single column on mobile */
+  gap: 0.6rem;
+}
+.hobby-list li {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.75rem 0.9rem;
+  background: var(--surface);
+  font-size: 0.87rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  transition: all 0.25s;
+}
+.hobby-list li:hover { border-color: var(--border-bright); background: var(--surface-hover); color: var(--text-primary); }
+/* Hobby name renders as a block label above the description text */
+.hobby-list li strong {
+  display: block;
+  color: var(--blue-soft);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  margin-bottom: 0.15em;
+}
+
+/* ── Education entry ──
+   Stacked on mobile; horizontal (name left, year right) on desktop. */
+.study-entry {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;   /* stacked on mobile */
+  gap: 0.5rem;
+}
+.study-school { font-weight: 500; color: var(--blue-soft); }
+/* Year badge — same token style as .exp-date */
+.study-year {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  background: rgba(45,111,255,0.1);
+  border: 1px solid var(--border);
+  padding: 0.2em 0.6em;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+
+/* ── Future plans block ──
+   A more visually distinct card with a brighter border and a decorative
+   corner glow, signaling this is the closing / aspirational section.   */
+.future-block {
+  background: linear-gradient(135deg, rgba(45,111,255,0.07), rgba(0,212,255,0.04));
+  border: 1px solid var(--border-bright);
+  border-radius: 8px;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+/* Decorative radial glow in the top-right corner of this card */
+.future-block::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 150px; height: 150px;
+  background: radial-gradient(circle, rgba(0,212,255,0.1), transparent 70%);
+  pointer-events: none;
+}
+.future-block p { margin: 0.7em 0; }
+
+/* ── Skill / tech tags ──
+   Small inline pills in the "What I do" section.
+   Styled to look like terminal output or dependency names.
+   flex-wrap allows them to flow onto multiple lines on narrow screens. */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.07em;
+  color: var(--blue-glow);
+  border: 1px solid rgba(77,143,255,0.3);
+  background: rgba(45,111,255,0.08);
+  padding: 0.2em 0.6em;
+  border-radius: 3px;
+}
+
+/* ── Scroll-triggered entrance animations ──
+   Elements with .animate-in start invisible and 16px below their
+   final position. JavaScript adds .visible when they enter the viewport,
+   which triggers the CSS transition defined directly on the class.      */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Initial hidden state — .visible is added by JS IntersectionObserver */
+.animate-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Blinking text cursor after the h1 ──
+   A thin block element that alternates between visible and invisible,
+   mimicking a terminal cursor. step-end produces a hard blink (no fade). */
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  background: var(--cyan);
+  margin-left: 3px;
+  vertical-align: middle;
+  animation: blink 1.1s step-end infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+
+/* ════════════════════════════════════════════
+   TABLET BREAKPOINT — min-width: 540px
+   Covers larger phones (landscape) and small tablets.
+   Key changes:
+     - Topbar items go side-by-side
+     - Button reverts from full-width to auto
+     - Hobbies switch to 2 columns
+     - Exp cards get a slide-right hover effect
+════════════════════════════════════════════ */
+@media (min-width: 540px) {
+  body { font-size: 15.5px; }
+  main { padding: 2.5rem 1.75rem; }
+
+  /* Topbar row layout: badge on the left, button on the right */
+  .topbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  /* Button no longer needs to fill the full row */
+  button.button, a.button { width: auto; }
+
+  h1 { font-size: 2.8rem; }
+
+  /* 2-column hobby grid now fits comfortably */
+  .hobby-list { grid-template-columns: 1fr 1fr; }
+
+  /* Subtle slide-right on hover — skipped on mobile to avoid layout shift */
+  .exp-entry:hover { transform: translateX(4px); }
+}
+
+
+/* ════════════════════════════════════════════
+   DESKTOP BREAKPOINT — min-width: 760px
+   Full desktop layout. Key changes:
+     - Generous padding and larger font sizes
+     - Intro block becomes a two-column grid
+     - Exp and study headers go horizontal
+     - Background grid loosens to 40px
+     - Top glow expands to a fixed pixel width
+════════════════════════════════════════════ */
+@media (min-width: 760px) {
+  body { font-size: 16px; }
+  main { padding: 5rem 2.5rem; }
+
+  /* Scale up type for desktop reading */
+  h1 { font-size: 3.8rem; }
+  h2 { font-size: 1.5rem; margin: 3rem 0 1rem 0; }
+  h3 { font-size: 1.05rem; }
+  p  { font-size: 0.97rem; }
+
+  .topbar { margin-bottom: 3rem; }
+
+  /* Two-column intro: text fills the left column, photo sits in the right */
+  .intro-block {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    flex-direction: unset;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 2rem;
+  }
+
+  /* Larger photo for desktop */
+  .photo-container { width: 180px; justify-self: end; }
+  .photo { width: 180px; height: 220px; }
+
+  /* More generous padding inside cards on larger screens */
+  .section-block { padding: 1.75rem 2rem; margin: 1.5rem 0; }
+  .exp-entry     { padding: 1.5rem 1.75rem; margin: 1rem 0; }
+
+  /* Exp header: title left, date right — space permits a row layout */
+  .exp-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Study entry: school name left, year badge right */
+  .study-entry {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Loosen the background grid on wide screens */
+  body::before { background-size: 40px 40px; }
+  /* Expand the top glow to a fixed size on wide viewports */
+  body::after { width: 800px; height: 600px; }
+}
+
+
+/* ════════════════════════════════════════════
+   PRINT STYLES
+   Triggered by window.print() (the "Download as PDF" button).
+   Strips all dark-mode decoration and renders a clean white
+   document. The button itself is hidden when printing.
+════════════════════════════════════════════ */
+@media print {
+  /* Disable all animations and transitions — irrelevant on paper */
+  * { animation: none !important; transition: none !important; }
+
+  /* White page, dark text, print-appropriate sizing */
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+  /* Remove all decorative overlays: grid, glow, scanlines */
+  body::before, body::after, .scanlines { display: none !important; }
+
+  .wrap { background: none; }
+
+  /* Full-width layout with standard print margins */
+  main {
+    max-width: 100%;
+    padding: 0.5cm 1cm;
+  }
+
+  /* Hide the entire top bar (button + badge) — not needed in a printed doc */
+  .topbar { display: none !important; }
+
+  /* Override the gradient text fill on h1 so it prints as solid dark text */
+  h1 {
+    font-size: 22pt;
+    -webkit-text-fill-color: #111 !important;
+    background: none !important;
+    color: #111 !important;
+    margin-bottom: 0.3em;
+  }
+  /* h2: brand blue with a simple bottom border instead of badge + line */
+  h2 {
+    font-size: 13pt;
+    color: #1a40cc !important;
+    border-bottom: 1px solid #cdd;
+    padding-bottom: 2px;
+    margin: 1.4em 0 0.4em;
+  }
+  /* Hide the badge and decorative line (they rely on dark-mode contrast) */
+  h2::before { display: none; }
+  h2::after  { display: none; }
+  h3 { font-size: 10.5pt; color: #222 !important; }
+
+  /* All body copy in print-safe dark gray */
+  p, li { color: #222 !important; font-size: 10pt; }
+
+  /* Links stay blue but lose the glow */
+  a {
+    color: #1a40cc !important;
+    -webkit-text-fill-color: #1a40cc !important;
+    text-shadow: none !important;
+  }
+
+  /* Strip card styling — only content should show in the printed document */
+  .section-block, .exp-entry, .future-block, .study-entry {
+    border: none !important;
+    background: none !important;
+    padding: 0.25em 0 !important;
+    box-shadow: none !important;
+  }
+  /* Left accent bars are invisible on white — hide them explicitly */
+  .section-block::before, .exp-entry::before { display: none; }
+
+  /* Date / year badges: render as plain italic text without the pill style */
+  .exp-date, .study-year {
+    background: none !important;
+    border: none !important;
+    color: #555 !important;
+    font-style: italic;
+  }
+
+  /* Tech tags: minimal styling suitable for a white background */
+  .tech-tags { margin-top: 0.3em; }
+  .tag {
+    border: 1px solid #bbb !important;
+    background: none !important;
+    color: #555 !important;
+    font-size: 8pt;
+  }
+
+  /* Hobbies: use two columns for a compact print layout */
+  .hobby-list { grid-template-columns: 1fr 1fr; gap: 0.3rem; }
+  .hobby-list li { border: none !important; background: none !important; padding: 0.1em 0 !important; }
+  .hobby-list li strong { color: #1a40cc !important; }
+
+  /* Remove animated glow effects from the photo — just show a plain image */
+  .photo-container::before { display: none; }
+  .photo-container::after  { display: none; }
+  .photo { border: 1px solid #ddd; }
+
+  /* Hide the blinking cursor — meaningless on paper */
+  .cursor-blink { display: none; }
+
+  /* Keep the two-column intro layout for print */
+  .intro-block {
+    display: grid !important;
+    grid-template-columns: 1fr 160px;
+    gap: 1.5rem;
+  }
+
+  /* Prevent individual job entries from splitting across page breaks */
+  .exp-entry, .section-block { page-break-inside: avoid; }
+}
