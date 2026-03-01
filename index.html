@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding and IE compatibility -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Ensures correct scaling on mobile devices instead of zooming out to fit desktop width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Hi, my name is Michal.</title>
+  <meta name="description" content="My personal website">
+
+  <!-- Preconnect hints open early connections to Google Fonts servers, speeding up font loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!--
+    Three typefaces used across the site:
+      JetBrains Mono  → monospace; used for code-style labels, dates, tags
+      Syne            → geometric display font; used for headings
+      DM Sans         → clean humanist sans; used for body text
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <!-- Main stylesheet — all screen styles live in screen.css -->
+  <link rel="stylesheet" href="./assets/screen.css" media="screen">
+  <!-- Print stylesheet — applied only when printing or saving as PDF -->
+  <link rel="stylesheet" href="./assets/print.css" media="print">
+
+</head>
+<body>
+
+  <!-- Fixed CRT-style scanline texture — sits over everything at z-index 1000 -->
+  <div class="scanlines"></div>
+
+  <!-- Outer wrapper: clips overflow from glow effects and lifts content above bg pseudo-elements -->
+  <div class="wrap">
+    <main class="page-content home-page">
+
+      <!-- ══════════════════════════
+           TOP BAR
+           Mobile: stacked column
+           Tablet+: horizontal row
+      ══════════════════════════ -->
+      <div class="topbar">
+        <!-- Code-comment-style badge — the "// " prefix is added by CSS ::before -->
+        <span class="works-as">Works as my resumé.</span>
+
+        <!--
+          PDF button: calls window.print() which opens the browser's print dialog.
+          The user can then choose "Save as PDF" to export the current page.
+          Because this prints the live HTML, all content edits are automatically
+          reflected — no need to maintain a separate PDF file.
+        -->
+        <button class="button download-pdf" onclick="window.print()">
+          Download this page as PDF
+        </button>
+      </div>
+
+
+      <!-- ══════════════════════════
+           INTRO BLOCK
+           Mobile:  single column (photo on top)
+           Desktop: 2-column grid (text left, photo right)
+           Both children use .animate-in → fade in on scroll
+      ══════════════════════════ -->
+      <div class="intro-block">
+
+        <!-- Left / top: name and bio -->
+        <div class="intro-text animate-in">
+          <!-- .cursor-blink adds the animated blinking bar after the name -->
+          <h1 id="hi-mynameismichal">Hi, my name is Michal.<span class="cursor-blink"></span></h1>
+
+          <p>Born in 1996, I'm a QA Engineer and technology enthusiast with interests
+          in various multimedia, art, and design.
+          I have experience with both front-end and back-end testing, web applications,
+          mobile application testing and hardware testing.
+          I am currently studying the programming languages ​​Python with JavaScript
+          and their use in automation. In addition to this CV, I am working on a website for my hobbies.
+          I use GitHub for my work.</p>
+        </div>
+
+        <!-- Right / top: profile photo with animated gradient border (via CSS ::before / ::after) -->
+        <!-- transition-delay staggers this element's entrance slightly after the text -->
+        <div class="photo-container animate-in" style="transition-delay:0.15s">
+          <img src="./assets/photo.jpg" class="photo" alt="My photography" />
+          <p class="photo-label">michal.jor — QA eng.</p>
+        </div>
+
+      </div><!-- /intro-block -->
+
+
+      <!-- ══════════════════════════
+           § 01 — CONTACT
+           data-prefix is read by the h2::before CSS rule to render the "§ 01" badge
+      ══════════════════════════ -->
+      <h2 id="how-to-contact-me" data-prefix="§ 01">How to contact me</h2>
+      <div class="section-block animate-in">
+        <p>My full name is <strong>Michal Jor</strong> and I currently live
+        in 📍 <strong>Jičín, Czech Republic</strong>.</p>
+
+        <p>You can drop me a line at ✉️ <a href="mailto:michal.jor96@gmail.com">michal.jor96@gmail.com</a>.<br />
+        I can be found on social networks — such as
+        <a href="https://www.linkedin.com/in/michal-jor-b941731a4/?locale=en_US" target="_blank">LinkedIn</a>
+        or <a href="https://github.com/M1CH43LS0N" target="_blank">GitHub</a>.
+        </p>
+      </div>
+
+
+      <!-- ══════════════════════════
+           § 02 — WHAT I DO
+           Contains role overview, testing philosophy,
+           and a row of .tag skill chips at the bottom.
+           To add/remove a skill, edit the .tech-tags block.
+      ══════════════════════════ -->
+      <h2 id="what-i-do" data-prefix="§ 02">What I do</h2>
+      <div class="section-block animate-in">
+        <p>I'm a QA Engineer with an emphasis on the
+        <strong>manual testing of web and mobile apps</strong>, and I consider mobile testing as my main focus.
+        I have extensive experience with writing step-by-step and BDD testing scenarios.
+        On my initiative, I maintain a knowledge-know-how database.
+        When possible, I organize retrospectives.
+        I am a technical recruiter when interviewing new QA members for my team.
+        Last but not least, I maintain a proactive approach to troubleshooting and communicating issues.</p>
+
+        <h3>Testing &amp; Testing Techniques</h3>
+        <p>I try to cover all corners of the field, from control of interactive elements &amp; features to UI design and UX to the overall final result
+          presented to users.
+          I value good testing practices. I keep clean reports and try to guide
+          others to do the same. I record all preconditions for a specific flow in the knowledge database.</p>
+
+        <p>I also like <strong>open-source</strong> and non-proprietary solutions,
+        so for example, it shouldn't be surprising that this resume is
+        <a href="https://github.com/M1CH43LS0N/MichalJorCV/blob/development/index_en.md">a Markdown file</a>
+        that can be converted easily into PDF, this website, or printed.</p>
+
+
+      </div>
+
+
+      <!-- ══════════════════════════
+           § 03 — HOBBIES & OTHER SKILLS
+           Uses .hobby-list: 1 column on mobile, 2 columns on tablet+.
+           Each <li> has a <strong> title that renders as a block label.
+      ══════════════════════════ -->
+      <h2 id="hobbies--other-skills" data-prefix="§ 03">Hobbies &amp; Other skills</h2>
+      <div class="section-block animate-in">
+        <p>I often spend some time improving myself in different fields. I actually
+        have much more hobbies than the below listed, but I find hobbies such as "cooking", highly irrelevant to the
+        purpose of this page.</p>
+
+        <ul class="hobby-list">
+          <!-- Each <li>: <strong> is the hobby name (block label), remaining text is description -->
+          <li>
+            <strong>3D printing</strong>
+            So far I'm using other professionals' designs more, but I'm slowly getting into 3D modelling software like Tinkercad or Onshape.
+          </li>
+          <li>
+            <strong>Game development</strong>
+            So far this is only theoretical knowledge, however, I plan to create projects in the Godot engine, which uses GDScript's syntax that is mostly derived from Python.
+          </li>
+          <li>
+            <strong>Laser engraving</strong>
+            So far I only engrave wood, but I want to work my way up to more complex materials.
+          </li>
+          <li>
+            <strong>Drone</strong>
+            After completing the pilot tests (A1 &amp; A3) I invest more free time to capture the world from a bird's eye view.
+          </li>
+          <li>
+            <strong>Exercise</strong>
+            Due to the nature of my job, I try to spend an hour a day exercising to lead a healthier lifestyle.
+          </li>
+          <li>
+            <strong>Photography &amp; Video editing</strong>
+            In addition to a drone and a mobile phone, I also use a mirrorless interchangeable-lens camera to take photos and videos. I use Gimp (I'm switching to Krita) to edit photos and DaVinci Resolve to edit videos.
+          </li>
+          <li>
+            <strong>Music</strong>
+            I play the acoustic guitar as a self-taught artist, but I am gradually expanding my horizons to other instruments as well.
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- ══════════════════════════
+           § 04 — EXPERIENCE
+           .exp-list is a plain <ul> containing .exp-entry cards.
+           Each card has:
+             .exp-header  — job title + date badge
+             .exp-desc    — role description
+             .exp-link    — company URL
+
+           The increasing transition-delay values create a staggered
+           scroll-reveal effect (each card fades in slightly after the one above).
+      ══════════════════════════ -->
+      <h2 id="my-past-experiences" data-prefix="§ 04">My past experiences</h2>
+
+      <ul class="exp-list">
+
+        <!-- Most recent role — no delay (appears first) -->
+        <li class="exp-entry animate-in">
+          <div class="exp-header">
+            <h3 id="qa-engineer-at-generali">QA Engineer at Generali Česká pojišťovna</h3>
+            <span class="exp-date">Feb 2025 – present</span>
+          </div>
+          <p class="exp-desc">Responsible for testing front-end and back-end parts of a business web application, creating and managing test and functional documentation, working with SQL queries and using tools such as Postman, Swagger and Kafka.</p>
+          <a class="exp-link" href="https://en.generaliceska.cz/" target="_blank">generaliceska.cz →</a>
+        </li>
+
+        <!-- 0.05s delay so it fades in just after the card above -->
+        <li class="exp-entry animate-in" style="transition-delay:0.05s">
+          <div class="exp-header">
+            <h3 id="qa-engineer-at-gen-digital">QA Engineer at Gen Digital</h3>
+            <span class="exp-date">Feb 2024 – Jan 2025</span>
+          </div>
+          <p class="exp-desc">Manual testing of subscription marketing campaigns for Avast, AVG, Norton, CCleaner and HMA mobile apps.</p>
+          <a class="exp-link" href="https://www.gendigital.com/us/en/" target="_blank">gendigital.com →</a>
+        </li>
+
+        <li class="exp-entry animate-in" style="transition-delay:0.1s">
+          <div class="exp-header">
+            <h3 id="qa-engineer-at-ceracare">QA Engineer at Cera Care</h3>
+            <span class="exp-date">Apr 2023 – Dec 2023</span>
+          </div>
+          <p class="exp-desc">Manual testing of a web application for caregiver management.</p>
+          <a class="exp-link" href="https://ceracare.co.uk/" target="_blank">ceracare.co.uk →</a>
+        </li>
+
+        <li class="exp-entry animate-in" style="transition-delay:0.15s">
+          <div class="exp-header">
+            <h3 id="qa-engineer-at-rohlik">QA Engineer at Rohlik Group</h3>
+            <span class="exp-date">Oct 2022 – Mar 2023</span>
+          </div>
+          <p class="exp-desc">Manual testing of mobile and web e-shop applications for Android and iOS systems.</p>
+          <a class="exp-link" href="https://www.rohlik.cz/en-CZ/vitejte" target="_blank">rohlik.cz →</a>
+        </li>
+
+        <li class="exp-entry animate-in" style="transition-delay:0.2s">
+          <div class="exp-header">
+            <h3 id="qa-tester-at-eman">QA Tester at eMan a.s.</h3>
+            <span class="exp-date">Dec 2021 – Sep 2022</span>
+          </div>
+          <p class="exp-desc">Manual testing of web applications for energy companies (management of technicians, customer pages).</p>
+          <a class="exp-link" href="https://www.emanprague.com/en/" target="_blank">emanprague.com →</a>
+        </li>
+
+        <!-- Oldest / first role — longest delay in the stagger sequence -->
+        <li class="exp-entry animate-in" style="transition-delay:0.25s">
+          <div class="exp-header">
+            <h3 id="software-tester-at-skoda">Software tester at ŠKODA AUTO a.s.</h3>
+            <span class="exp-date">Jan 2019 – Nov 2021</span>
+          </div>
+          <p class="exp-desc">Infotainment manual tester for communication with smartphones. MyŠkoda mobile application manual tester. Test engineer of software for virtual reality.</p>
+          <a class="exp-link" href="https://www.skoda-auto.cz/" target="_blank">skoda-auto.cz →</a>
+        </li>
+
+      </ul><!-- /exp-list -->
+
+
+      <!-- ══════════════════════════
+           § 05 — EDUCATION
+           A single .study-entry inside a card.
+           Mobile: name and year stack vertically.
+           Desktop: name on the left, year badge on the right.
+      ══════════════════════════ -->
+      <h2 id="where-i-studied" data-prefix="§ 05">Where I studied</h2>
+      <div class="section-block animate-in">
+        <div class="study-entry">
+          <div>
+            <span class="study-school">
+              <a href="https://prumyslovkajicin.cz/" target="_blank">Secondary Technical School, Jičín</a>
+            </span>
+            <!-- Inline style used for this one-off micro-label; not worth creating a dedicated class -->
+            <div style="font-size:0.82rem;color:var(--text-dim);font-family:var(--mono);margin-top:0.25em">Graduation — IT</div>
+          </div>
+          <span class="study-year">2013 – 2017</span>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════
+           § 06 — FUTURE PLANS
+           Uses .future-block — a more prominent card with a brighter border
+           and a decorative corner glow, visually closing out the page.
+      ══════════════════════════ -->
+      <h2 id="what-future-holds" data-prefix="§ 06">What future holds?</h2>
+      <div class="future-block animate-in">
+        <p>Soon, I would like to move to a higher level and automate the testing processes.
+        Based on this, I am self-studying Python, however, I would like to automate using TypeScript in the Playwright framework in the coming years.</p>
+        <p>In 5 years, I would like to develop into a front-end developer using React.</p>
+      </div>
+
+    </main>
+  </div><!-- /wrap -->
+
+  <!-- Main scripts: scroll animations, parallax -->
+  <script src="./assets/main.js"></script>
+</body>
+</html>
