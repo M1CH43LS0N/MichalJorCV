@@ -1,0 +1,22 @@
+{
+  "name": "michal-jor-cv",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal CV website (CS/EN) with Playwright + TypeScript tests",
+  "scripts": {
+    "start": "tsx tests/helpers/static-server.ts",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.0.0",
+    "@types/pdf-parse": "^1.1.4",
+    "pdf-parse": "1.1.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
